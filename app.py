@@ -4,9 +4,27 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-# cluster = pymongo.MongoClient("mongodb+srv://zak:1234@zak-cluster.gp6ka.mongodb.net/wow-data?retryWrites=true&w=majority")
-# db = cluster["wow-data"]
-# collection = db["user-data"]
+cluster = pymongo.MongoClient("mongodb+srv://zak:1234@zak-cluster.gp6ka.mongodb.net/wow-data?retryWrites=true&w=majority")
+db = cluster["wow-data"]
+user_collection = db["user-data"]
+dungeon_collection = db["dungeon-data"]
+
+@app.route("/", methods=["GET"])
+def home():
+    return render_template("index.html")
+
+@app.route("/dungeon/<abbr>", methods=["GET"])
+def dungeon_page(abbr):    
+    dungeon = dungeon_collection.find_one({"shorthand": abbr})
+
+    if dungeon:
+        return render_template("dungeon.html", dungeon=dungeon)
+    else:
+        return render_template("404.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
 
 # post = { "username": "zak", 
 #          "password": "1234",
@@ -116,12 +134,3 @@ app = Flask(__name__)
 #             "+10 and above": 0
 #          }
 #        }
-
-# collection.insert_one(post)
-
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-if __name__ == "__main__":
-    app.run(debug=True)
