@@ -1,12 +1,13 @@
 from flask import Flask, redirect, url_for, render_template, request, session, g, flash
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
 import pymongo
 from pymongo import MongoClient
 
 app = Flask(__name__)
-app.secret_key = "secrets"
+app.secret_key = os.environ.get('SECRET')
 
-cluster = pymongo.MongoClient("mongodb+srv://zak:1234@zak-cluster.gp6ka.mongodb.net/wow-data?retryWrites=true&w=majority")
+cluster = pymongo.MongoClient(os.environ.get('MONGODB_URI'))
 db = cluster["wow-data"]
 user_collection = db["user-data"]
 dungeon_collection = db["dungeon-data"]
