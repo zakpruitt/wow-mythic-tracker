@@ -1,181 +1,192 @@
 {% extends "base.html" %}
 
-{% block title %}Page Pog{% endblock %}
+{% block title %}{{ dungeon["dungeon_name"] }}{% endblock %}
 
 {% block content %}
 <div class="container" style="margin-top: 5%;">
-    <div class="row">
-        <div class="col-sm" style="margin-right: 4%;">
-            <h2>YOUR WEEKLY</h2>
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Keystone</th>
-                    <th scope="col">Number Completed</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">0</th>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>5</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">6</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">7</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">8</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">9</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">10+</th>
-                    <td>9</td>
-                  </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-sm">
-            <h2>YOUR TOTAL</h2>
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Keystone</th>
-                    <th scope="col">Number Completed</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">0</th>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>5</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">6</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">7</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">8</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">9</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">10+</th>
-                    <td>9</td>
-                  </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-sm" style="margin-left: 4%;">
-            <h2>WORLD TOTAL</h2>
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Keystone</th>
-                    <th scope="col">Number Completed</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">0</th>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>5</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">6</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">7</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">8</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">9</th>
-                    <td>9</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">10+</th>
-                    <td>9</td>
-                  </tr>
-                </tbody>
-            </table>
-        </div>
+  <div class="row">
+    <!--WEEKLY-->
+    <div class="col-sm" style="margin-right: 4%;">
+      <h2>YOUR WEEKLY</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Keystone</th>
+            <th scope="col">Number Completed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">0</th>
+            <td>{{ g.user.get(dungeon["p_name"]).plus0 }}</td>
+          </tr>
+          <tr>
+            <th scope="row">1</th>
+            <td>{{ g.user.get(p_name).plus1 }}</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>{{ g.user.get(p_name).plus2 }}</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>{{ g.user.get(p_name).plus3 }}</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>{{ g.user.get(p_name).plus4 }}</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>{{ g.user.get(p_name).plus5 }}</td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>{{ g.user.get(p_name).plus6 }}</td>
+          </tr>
+          <tr>
+            <th scope="row">7</th>
+            <td>{{ g.user.get(p_name).plus7 }}</td>
+          </tr>
+          <tr>
+            <th scope="row">8</th>
+            <td>{{ g.user.get(p_name).plus8 }}</td>
+          </tr>
+          <tr>
+            <th scope="row">9</th>
+            <td>{{ g.user.get(p_name).plus9 }}</td>
+          </tr>
+          <tr>
+            <th scope="row">10+</th>
+            <td>{{ g.user.get(p_name).plus10 }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <!--TOTAL-->
+    <div class="col-sm">
+      <h2>YOUR TOTAL</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Keystone</th>
+            <th scope="col">Number Completed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">0</th>
+            <td>{{ g.user.get(p_name).plus0T }}</td>
+          </tr>
+          <tr>
+            <th scope="row">1</th>
+            <td>{{ g.user.get(p_name).plus1T }}</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>{{ g.user.get(p_name).plus2T }}</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>{{ g.user.get(p_name).plus3T }}</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>{{ g.user.get(p_name).plus4T }}</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>{{ g.user.get(p_name).plus5T }}</td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>{{ g.user.get(p_name).plus6T }}</td>
+          </tr>
+          <tr>
+            <th scope="row">7</th>
+            <td>{{ g.user.get(p_name).plus7T }}</td>
+          </tr>
+          <tr>
+            <th scope="row">8</th>
+            <td>{{ g.user.get(p_name).plus8T }}</td>
+          </tr>
+          <tr>
+            <th scope="row">9</th>
+            <td>{{ g.user.get(p_name).plus9T }}</td>
+          </tr>
+          <tr>
+            <th scope="row">10+</th>
+            <td>{{ g.user.get(p_name).plus10T }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--WORLD TOTAL-->
+    <div class="col-sm" style="margin-left: 4%;">
+      <h2>WORLD TOTAL</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Keystone</th>
+            <th scope="col">Number Completed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">0</th>
+            <td>{{ dungeon["plus0"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">1</th>
+            <td>{{ dungeon["plus1"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>{{ dungeon["plus2"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>{{ dungeon["plus3"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>{{ dungeon["plus4"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>{{ dungeon["plus5"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>{{ dungeon["plus6"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">7</th>
+            <td>{{ dungeon["plus7"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">8</th>
+            <td>{{ dungeon["plus8"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">9</th>
+            <td>{{ dungeon["plus9"] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">10+</th>
+            <td>{{ dungeon["plus10"] }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
+{% endblock %}
+
+{% block footer %}
+<footer class="py-4 bg-dark text-white" id="sticky-footer">
+  <div class="container text-center">
+    <small>Copyright &copy; Zak Pruitt</small>
+  </div>
+</footer>
 {% endblock %}

@@ -5,6 +5,14 @@
 {% block content %}
 	<!-- Wrapper -->
 	<div id="wrapper">
+		{% for message in get_flashed_messages() %}
+		<div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 5%; width: 50%; margin-left: 26%; margin-bottom: -5%;">
+			{{message}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		{% endfor %}
 		<!-- Main -->
 		<div id="main" style="margin-top: 6%; margin-bottom: -4%;">
 			<div class="inner">
@@ -101,4 +109,12 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="py-4 bg-dark text-white" id="sticky-footer">
+    <div class="container text-center">
+      <small>Copyright &copy; Zak Pruitt</small>
+    </div>
+</footer>
 {% endblock %}
