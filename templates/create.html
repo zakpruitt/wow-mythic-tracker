@@ -1,0 +1,241 @@
+{% extends "master.html" %} {% block title %}Create Assignment{% endblock %} {%
+block content %}
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Chloe McIsaac's Classroom
+    </a>
+    <ul class="navbar-nav px-4">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="#">Sign out</a>
+        </li>
+    </ul>
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <!--SIDEBAR-->
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/">
+                            <span data-feather="home"></span>
+                            Assignment Hub
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/assignment/create">
+                            <span data-feather="file-plus"></span>
+                            Create Assignment
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="bar-chart-2"></span>
+                            Performance Statistics
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="users"></span>
+                            Manage Student Accounts
+                        </a>
+                    </li>
+                </ul>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Quiz reports</span>
+                    <a class="link-secondary" href="#" aria-label="Add a new report">
+                        <span data-feather="plus-circle"></span>
+                    </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            CS 258 - Basic Loop Quiz
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            CS 358 - Inheritance Quiz
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            CS 311 - Sorting Test
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <form method="POST" id="create">
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!--BUTTONS-->
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h2>My New Assignment</h2>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary btn-hover-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                Edit Assignment Name
+                            </button>
+                            <button type="submit" class="btn btn-sm btn-outline-secondary btn-hover-primary">
+                                Publish Assignment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--QUIZ CREATION-->
+                <div class="create-container">
+                    <!--QUIZ QUESTIONS-->
+                    <div class="accordion" id="questions">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading1">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                    Question #1
+                                </button>
+                            </h2>
+                            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#questions">
+                                <div class="accordion-body">
+                                    <!--QUESTION TITLE AND TYPE-->
+                                    <div class="row">
+                                        <!--QUESTION TITLE-->
+                                        <div class="col-lg-9">
+                                            <div class="form-floating">
+                                                <textarea class="form-control question-input" name="title1" id="title1"
+                                                    required></textarea>
+                                                <label for="title1">Question Title</label>
+                                            </div>
+                                        </div>
+                                        <!--QUESTION TYPE-->
+                                        <div class="col-lg-3">
+                                            <div class="form-floating">
+                                                <select onchange="ChangeQuestionType(this)"
+                                                    class="form-select type-input" id="inputGroupSelect1">
+                                                    <option selected value="1">
+                                                        4 Question Multiple Choice
+                                                    </option>
+                                                    <option value="2">True/False</option>
+                                                </select>
+                                                <label for="inputGroupSelect1">Question Type</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <!--QUESTION ANSWERS-->
+                                    <div id="question-body1">
+                                        <!--OPTION 1-->
+                                        <div class="row align-items-center" id="questionsBody">
+                                            <div class="col-lg-6">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="q1option1"
+                                                        name="q1option1" required>
+                                                    <label for="q1option1">Option 1</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        onchange=RadioCheckmarks(this) name="q1correct1"
+                                                        id="q1correct1">
+                                                    <label class="form-check-label checkbox-text" for="q1correct1">
+                                                        Correct Answer
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--OPTION 2-->
+                                        <div class="row align-items-center options-input" id="questionsBody">
+                                            <div class="col-lg-6">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="q1option2"
+                                                        name="q1option2" required>
+                                                    <label for="q1option2">Option 2</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" onchange=RadioCheckmarks(this)
+                                                        type="checkbox" name="q1correct2" id="q1correct2">
+                                                    <label class="form-check-label checkbox-text" for="q1correct2">
+                                                        Correct Answer
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--OPTION 3-->
+                                        <div class="row align-items-center options-input" id="questionsBody">
+                                            <div class="col-lg-6">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="q1option3"
+                                                        name="q1option3" required>
+                                                    <label for="q1option3">Option 3</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" onchange=RadioCheckmarks(this)
+                                                        type="checkbox" name="q1correct3" id="q1correct3">
+                                                    <label class="form-check-label checkbox-text" for="q1correct3">
+                                                        Correct Answer
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--OPTION 4-->
+                                        <div class="row align-items-center options-input" id="questionsBody">
+                                            <div class="col-lg-6">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="q1option4"
+                                                        name="q1option4" required>
+                                                    <label for="q1option4">Option 4</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" onchange=RadioCheckmarks(this)
+                                                        type="checkbox" name="q1correct4" id="q1correct4">
+                                                    <label class="form-check-label checkbox-text" for="q1correct4">
+                                                        Correct Answer
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--ADD BUTTON-->
+                    <button class="feather-button add-button" type="button" onclick="AppendQuestion()">
+                        <span class="feather-32" data-feather="plus-circle"></span>
+                    </button>
+
+                    <button class="feather-button add-button" type="button" onclick="Display()">
+                        <span class="feather-32" data-feather="plus-circle"></span>
+                    </button>
+                </div>
+            </main>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+    integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+    crossorigin="anonymous"></script>
+<script src="../static/js/create.js"></script>
+{% endblock %}

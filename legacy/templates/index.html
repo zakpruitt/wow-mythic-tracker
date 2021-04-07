@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+	<!-- Wrapper -->
+	<div id="wrapper">
+		{% for message in get_flashed_messages() %}
+		<div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 5%; width: 50%; margin-left: 26%; margin-bottom: -5%;">
+			{{message}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		{% endfor %}
+		<!-- Main -->
+		<div id="main" style="margin-top: 6%; margin-bottom: -4%;">
+			<div class="inner">
+				<section class="tiles">
+					<article class="style2">
+						<span class="image">
+							<img src="../static/images/necrotic.jpg" alt="" />
+						</span>
+						<a href="/dungeon/NW">
+							<h2>The Necrotic Wake</h2>
+							<div class="content">
+								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
+							</div>
+						</a>
+					</article>
+					<article class="style3">
+						<span class="image">
+							<img src="../static/images/plaguefall.jpg" alt="" />
+						</span>
+						<a href="/dungeon/PF">
+							<h2>Plaguefall</h2>
+							<div class="content">
+								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
+							</div>
+						</a>
+					</article>
+					<article class="style6">
+						<span class="image">
+							<img src="../static/images/mist.jpg" alt="" />
+						</span>
+						<a href="/dungeon/MTS">
+							<h2>Mists of Tirna Scithe</h2>
+							<div class="content">
+								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
+							</div>
+						</a>
+					</article>
+					<article class="style1">
+						<span class="image">
+							<img src="../static/images/halls.jpg" alt="" />
+						</span>
+						<a href="/dungeon/HT">
+							<h2>Halls of Atonement</h2>
+							<div class="content">
+								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
+							</div>
+						</a>
+					</article>
+					<article class="style2">
+						<span class="image">
+							<img src="../static/images/spires.jpg" alt="" />
+						</span>
+						<a href="/dungeon/SA">
+							<h2>Spires of Ascension</h2>
+							<div class="content">
+								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
+							</div>
+						</a>
+					</article>
+					<article class="style3">
+						<span class="image">
+							<img src="../static/images/theatre.jpg" alt="" />
+						</span>
+						<a href="/dungeon/TP">
+							<h2>Theatre of Pain</h2>
+							<div class="content">
+								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
+							</div>
+						</a>
+					</article>
+					<article class="style6">
+						<span class="image">
+							<img src="../static/images/other-side.jpg" alt="" />
+						</span>
+						<a href="/dungeon/DOS">
+							<h2>De Other Side</h2>
+							<div class="content">
+								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
+							</div>
+						</a>
+					</article>
+					<article class="style1">
+						<span class="image">
+							<img src="../static/images/sanguine.jpg" alt="" />
+						</span>
+						<a href="/dungeon/SD">
+							<h2>Sanguine Depths</h2>
+							<div class="content">
+								<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
+							</div>
+						</a>
+					</article>
+				</section>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="py-4 bg-dark text-white" id="sticky-footer">
+    <div class="container text-center">
+      <small>Copyright &copy; Zak Pruitt</small>
+    </div>
+</footer>
+{% endblock %}

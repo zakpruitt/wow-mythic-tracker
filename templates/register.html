@@ -1,114 +1,46 @@
-{% extends "base.html" %}
+{% extends "master.html" %}
 
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<div class="container" id="page-content" style="margin-top: 7%;">
+<form class="form-signin center" method="POST">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning" role="alert" style="margin-bottom: 10%;">{{message}}</div>
+    {% endfor %}
 
-  {% for message in get_flashed_messages() %}
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    {{message}}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  {% endfor %}
+    <!--TITLE-->
+    <img class="mb-4" src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72"
+        height="57">
+    <h1 class="h3 mb-3 fw-normal">Registration</h1>
 
-  <div class="row">
-    <div class="col-lg-10 col-xl-9 mx-auto">
-      <div class="card card-signin flex-row my-5">
-        <!--IMAGE-->
-        <div class="card-img-left d-none d-md-flex">
-          <img src="../static/images/register.jpg" alt="Torghast">
-        </div>
-
-        <!--REGISTRATION FORM-->
-        <div class="card-body">
-          <h5 class="card-title text-center">Register</h5>
-          <!--FORM-->
-          <form class="form-signin" method="POST">
-            <!--USERNAME-->
-            <div class="form-label-group">
-              <input type="text" id="inputUserame" name="username" class="form-control" placeholder="Username" required
-                autofocus>
-              <label for="inputUserame">Username</label>
-            </div>
-
-            <!--SPEC-->
-            <div class="form-label-group">
-              <select class="form-control" name="spec" id="inputSpec">
-                <option>Blood Death Knight</option>
-                <option>Frost Death Knight</option>
-                <option>Unholy Death Knight</option>
-                <option>Havoc Demon Hunter</option>
-                <option>Vengeance Demon Hunter</option>
-                <option>Balance Druid</option>
-                <option>Feral Druid</option>
-                <option>Guardian Druid</option>
-                <option>Restoration Druid</option>
-                <option>Beast Mastery Hunter</option>
-                <option>Marksman Hunter</option>
-                <option>Survival Hunter</option>
-                <option>Arcane Mage</option>
-                <option>Fire Mage</option>
-                <option>Frost Mage</option>
-                <option>Brewmaster Monk</option>
-                <option>Mistweaver Monk</option>
-                <option>Windwalker Monk</option>
-                <option>Holy Paladin</option>
-                <option>Protection Paladin</option>
-                <option>Retribution Paladin</option>
-                <option>Discipline Priest</option>
-                <option>Holy Priest</option>
-                <option>Shadow Priest</option>
-                <option>Assassination Rogue</option>
-                <option>Outlaw Rogue</option>
-                <option>Subtlety Rogue</option>
-                <option>Elemental Shaman</option>
-                <option>Enhancement Shaman</option>
-                <option>Restoration Shaman</option>
-                <option>Affliction Warlock</option>
-                <option>Demonology Warlock</option>
-                <option>Destruction Warlock</option>
-                <option>Arms Warlock</option>
-                <option>Fury Warlock</option>
-                <option>Protection Warlock</option>
-              </select>
-              <label for="inputSpec">WoW Specialization</label>
-            </div>
-
-            <hr>
-            
-            <!--PASSWORD-->
-            <div class="form-label-group">
-              <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password"
-                required>
-              <label for="inputPassword">Password</label>
-            </div>
-
-            <!--PASSWORD CONFIRMATION-->
-            <div class="form-label-group">
-              <input type="password" id="inputConfirmPassword" name="cpassword" class="form-control"
-                placeholder="Password" required>
-              <label for="inputConfirmPassword">Confirm password</label>
-            </div>
-
-            <!--SUBMIT-->
-            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit"
-              style="margin-top: 10%;">Register</button>
-            <a class="d-block text-center mt-2 small" href="/login">Sign In</a>
-          </form>
-        </div>
-      </div>
+    <!--EMAIL-->
+    <div class="form-floating">
+        <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
+        <label for="floatingInput">Email address</label>
     </div>
-  </div>
-</div>
-{% endblock %}
 
-{% block footer %}
-<footer class="py-4 bg-dark text-white fixed-bottom" id="sticky-footer">
-  <div class="container text-center">
-    <small>Copyright &copy; Zak Pruitt</small>
-  </div>
-</footer>
+    <!--NAME-->
+    <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" name="name" placeholder="Bob Ross">
+        <label for="floatingInput">Full Name</label>
+    </div>
+
+    <hr>
+    
+    <!--PASSWORDS-->
+    <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+    </div>
+    <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" name="cpassword" style="margin-bottom: 15px;"
+            placeholder="Confirm Password">
+        <label for="floatingPassword">Confirm Password</label>
+    </div>
+
+    <!--BUTTONS-->
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+    <a href="/user/login">Login</a>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+</form>
 {% endblock %}
