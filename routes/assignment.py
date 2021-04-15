@@ -2,7 +2,7 @@ from flask import Flask, render_template, g, request, session, Blueprint, flash,
 from pymongo import MongoClient
 from uuid import uuid4
 from .init import assignment_collection
-import re
+import re, string, random
 
 assignment = Blueprint('assignment', __name__, url_prefix='/assignment')
 
@@ -19,8 +19,7 @@ def create():
         # check if title is in use
         assignment = assignment_collection.find_one({
             "email": g.user["email"],
-            "title": data["assignment-title"],
-            "urlKey": generate_url(),
+            "title": data["assignment-title"]
         })
         if assignment:
             flash("You already have an assignment created with that title.")
@@ -30,7 +29,8 @@ def create():
         post = {
             "_id": str(uuid4()),
             "email": g.user["email"],
-            "title": data["assignment-title"]
+            "title": data["assignment-title"],
+            "urlKey": generate_url()
         }
 
         for i in range(1, length + 1):
@@ -74,6 +74,7 @@ def key_detector(key):
     #     return "404"
     pass
 
+
 # region URL FUNCTIONS
 
 
@@ -92,6 +93,7 @@ def generate_url():
 def get_random_string():
     letters = string.ascii_letters
     return ''.join(random.choice(letters) for i in range(6))
+
 
 # endregion
 
@@ -123,5 +125,6 @@ def get_question_correct_key(questionNumber, keys):
 
 def parse_correct_key_number(correctKey):
     return int(re.search(r"(\d+)$", correctKey).group())
+
 
 # endregion
