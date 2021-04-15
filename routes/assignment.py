@@ -17,16 +17,19 @@ def create():
         length = get_length(list(data.keys()))
 
         # check if title is in use
-        assignment = assignment_collection.find_one({"email": g.user["email"], "title": data["assignment-title"]})
+        assignment = assignment_collection.find_one(
+            {"email": g.user["email"], 
+            "title": data["assignment-title"]}
+        )
         if assignment:
             flash("You already have an assignment created with that title.")
             return redirect("/assignment/create")
-        
+
         # create post
         post = {
-            "_id": str(uuid4()), 
+            "_id": str(uuid4()),
             "email": g.user["email"],
-            "title": data["assignment-title"]    
+            "title": data["assignment-title"]
         }
 
         for i in range(1, length + 1):
@@ -49,7 +52,7 @@ def create():
             post[f"question{i}"] = temp
 
         # insert into db
-        assignment_collection.insert_one(post) 
+        assignment_collection.insert_one(post)
         return render_template("create.html")
 
 
