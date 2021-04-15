@@ -5,11 +5,12 @@ import os
 
 init = Blueprint('init', __name__)
 
-cluster = MongoClient('mongodb+srv://zak:1234@zak-cluster.gp6ka.mongodb.net/wow-data?retryWrites=true&w=majority')
+cluster = MongoClient('mongodb+srv://zak:1234@zak-cluster.gp6ka.mongodb.net/coin-data?retryWrites=true&w=majority')
 #cluster = MongoClient(os.environ.get('MONGODB_URI'))
 db = cluster["coin-data"]
 user_collection = db["user"]
 assignment_collection = db["assignment"]
+
 
 @init.before_app_request
 def find_user():

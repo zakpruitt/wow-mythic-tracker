@@ -1,7 +1,8 @@
-from flask import Flask, render_template, g, request, session, Blueprint
+from flask import Flask, render_template, g, request, session, Blueprint, flash, redirect
 from pymongo import MongoClient
+from uuid import uuid4
 from .init import assignment_collection
-import re
+import re, string, random
 
 assignment = Blueprint('assignment', __name__, url_prefix='/assignment')
 
@@ -14,7 +15,23 @@ def create():
     elif request.method == "POST":
         data = request.form.to_dict()
         length = get_length(list(data.keys()))
-        post = {"email": g.user["email"]}
+
+        # check if title is in use
+        assignment = assignment_collection.find_one({
+            "email": g.user["email"],
+            "title": data["assignment-title"]
+        })
+        if assignment:
+            flash("You already have an assignment created with that title.")
+            return redirect("/assignment/create")
+
+        # create post
+        post = {
+            "_id": str(uuid4()),
+            "email": g.user["email"],
+            "title": data["assignment-title"],
+            "urlKey": generate_url()
+        }
 
         for i in range(1, length + 1):
             # INITIALIZE DICT
@@ -35,8 +52,52 @@ def create():
             # ADD TO POST
             post[f"question{i}"] = temp
 
+        # insert into db
         assignment_collection.insert_one(post)
         return render_template("create.html")
+
+
+@assignment.route("/<key>", methods=["GET"])
+def key_detector(key):
+    """ Detects key in database and redirects user to corresponding original field.
+    Args:
+        key (string): The URL's unique key
+    Returns:
+        function: Redirects to original page or 404 page.
+    """
+
+    # url = table.find_one({"key": key})
+
+    # if url:
+    #     return redirect(url["original"])
+    # else:
+    #     return "404"
+    pass
+
+
+# region URL FUNCTIONS
+
+
+def generate_url():
+    key = get_random_string()
+    url = assignment_collection.find_one({"urlKey": key})
+
+    # makes sure url is unique
+    while url:
+        key = get_random_string()
+        url = assignment_collection.find_one({"urlKey": key})
+
+    return key
+
+
+def get_random_string():
+    letters = string.ascii_letters
+    return ''.join(random.choice(letters) for i in range(6))
+
+
+# endregion
+
+# region HELPER FUNCTIONS
 
 
 def get_length(formKeys):
@@ -64,3 +125,6 @@ def get_question_correct_key(questionNumber, keys):
 
 def parse_correct_key_number(correctKey):
     return int(re.search(r"(\d+)$", correctKey).group())
+
+
+# endregion
