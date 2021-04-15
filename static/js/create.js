@@ -275,6 +275,12 @@ function RadioCheckmarks(element) {
   }
 }
 
+function ChangeAssignmentTitle() {
+    var newTitle = $("#assignmentTitle").val();
+    $("#titleDisplay").text(newTitle);
+    $("#assignment-title").val(newTitle);
+}
+
 function Display() {
     alert($('#create').serialize());
 }

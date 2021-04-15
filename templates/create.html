@@ -71,25 +71,50 @@ block content %}
             </div>
         </nav>
 
-        <form method="POST" id="create">
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <!--BUTTONS-->
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h2>My New Assignment</h2>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group me-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary btn-hover-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                                Edit Assignment Name
-                            </button>
-                            <button type="submit" class="btn btn-sm btn-outline-secondary btn-hover-primary">
-                                Publish Assignment
-                            </button>
+        <!--CREATE CONTENT-->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <!--BUTTONS-->
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h2 id="titleDisplay">My New Assignment</h2>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-hover-primary"
+                            data-bs-toggle="modal" data-bs-target="#titleChangeModal">
+                            Edit Assignment Name
+                        </button>
+                        <button type="submit" form="create" class="btn btn-sm btn-outline-secondary btn-hover-primary">
+                            Publish Assignment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!--MODAL-->
+            <div class="modal fade" id="titleChangeModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Assignment Title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="assignmentTitle">
+                                <label for="assignmentTitle">New Assignment Title</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button onclick="ChangeAssignmentTitle()" type="button" class="btn btn-success"
+                                data-bs-dismiss="modal">Save changes</button>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!--QUIZ CREATION-->
+            <!--QUIZ CREATION-->
+            <form method="POST" id="create">
                 <div class="create-container">
+                    <input hidden id="assignment-title" name="assignment-title">
                     <!--QUIZ QUESTIONS-->
                     <div class="accordion" id="questions">
                         <div class="accordion-item">
@@ -99,7 +124,8 @@ block content %}
                                     Question #1
                                 </button>
                             </h2>
-                            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#questions">
+                            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1"
+                                data-bs-parent="#questions">
                                 <div class="accordion-body">
                                     <!--QUESTION TITLE AND TYPE-->
                                     <div class="row">
@@ -229,7 +255,7 @@ block content %}
                         <span class="feather-32" data-feather="plus-circle"></span>
                     </button>
                 </div>
-            </main>
+        </main>
         </form>
     </div>
 </div>

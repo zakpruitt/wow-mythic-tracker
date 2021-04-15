@@ -1,5 +1,6 @@
 from flask import Flask, render_template, g, request, session, Blueprint
 from pymongo import MongoClient
+from uuid import uuid4
 from .init import assignment_collection
 import re
 
@@ -14,7 +15,13 @@ def create():
     elif request.method == "POST":
         data = request.form.to_dict()
         length = get_length(list(data.keys()))
-        post = {"email": g.user["email"]}
+        post = {
+            "_id": str(uuid4()), 
+            "email": g.user["email"],
+            "title": data["assignment-title"]    
+        }
+
+        print("this is it: " + data["assignment-title"])
 
         for i in range(1, length + 1):
             # INITIALIZE DICT
