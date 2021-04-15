@@ -56,6 +56,8 @@ def register():
         
         if accountType == "Student":
             post["coins"] = 0
+        else:
+            post["students"] = { }
             
         # post user to database
         user_collection.insert_one(post)
