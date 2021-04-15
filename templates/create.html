@@ -1,11 +1,14 @@
-{% extends "master.html" %} {% block title %}Create Assignment{% endblock %} {%
-block content %}
+{% extends "master.html" %}
+
+{% block title %}Create Assignment{% endblock %}
+
+{% block content %}
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Chloe McIsaac's Classroom
     </a>
     <ul class="navbar-nav px-4">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Sign out</a>
+            <a class="nav-link" href="/user/sign-out">Sign out</a>
         </li>
     </ul>
 </header>
@@ -44,9 +47,6 @@ block content %}
 
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>Quiz reports</span>
-                    <a class="link-secondary" href="#" aria-label="Add a new report">
-                        <span data-feather="plus-circle"></span>
-                    </a>
                 </h6>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
@@ -74,7 +74,8 @@ block content %}
         <!--CREATE CONTENT-->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <!--BUTTONS-->
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h2 id="titleDisplay">My New Assignment</h2>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group me-2">
@@ -114,7 +115,14 @@ block content %}
             <!--QUIZ CREATION-->
             <form method="POST" id="create">
                 <div class="create-container">
+                    <!--FLASH ERRORS-->
+                    {% for message in get_flashed_messages() %}
+                    <div class="alert alert-warning" role="alert">{{message}}</div>
+                    {% endfor %}
+
+                    <!--HIDDEN ASSIGNMENT TITLE INPUT-->
                     <input hidden id="assignment-title" name="assignment-title">
+
                     <!--QUIZ QUESTIONS-->
                     <div class="accordion" id="questions">
                         <div class="accordion-item">
@@ -255,8 +263,8 @@ block content %}
                         <span class="feather-32" data-feather="plus-circle"></span>
                     </button>
                 </div>
+            </form>
         </main>
-        </form>
     </div>
 </div>
 

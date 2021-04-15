@@ -44,37 +44,20 @@ def register():
         hashed_password = generate_password_hash(password, method="sha256")
 
         name = request.form["name"]
+        accountType = request.form["type"]
         
-        # post user to database
+        # create post
         post = {
             "email": email,
             "password": hashed_password,
             "name": name,
-            "necrotic_wake": {
-                "plus0T": 0,
-                "plus1T": 0,
-                "plus2T": 0,
-                "plus3T": 0,
-                "plus4T": 0,
-                "plus5T": 0,
-                "plus6T": 0,
-                "plus7T": 0,
-                "plus8T": 0,
-                "plus9T": 0,
-                "plus10T": 0,
-                "plus0": 0,
-                "plus1": 0,
-                "plus2": 0,
-                "plus3": 0,
-                "plus4": 0,
-                "plus5": 0,
-                "plus6": 0,
-                "plus7": 0,
-                "plus8": 0,
-                "plus9": 0,
-                "plus10": 0
-            },
+            "type": accountType,
         }
+        
+        if accountType == "Student":
+            post["coins"] = 0
+            
+        # post user to database
         user_collection.insert_one(post)
         flash("Your account was successfully made! Please login now.")
         return redirect("/user/login")
@@ -86,4 +69,5 @@ def register():
 def sign_out():
     """hello."""
     session.pop("email", None)
+    flash("You have been logged out successfully.")
     return redirect("/user/login")

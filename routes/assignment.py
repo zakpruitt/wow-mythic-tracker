@@ -1,4 +1,4 @@
-from flask import Flask, render_template, g, request, session, Blueprint
+from flask import Flask, render_template, g, request, session, Blueprint, flash, redirect
 from pymongo import MongoClient
 from uuid import uuid4
 from .init import assignment_collection
@@ -15,13 +15,19 @@ def create():
     elif request.method == "POST":
         data = request.form.to_dict()
         length = get_length(list(data.keys()))
+
+        # check if title is in use
+        assignment = assignment_collection.find_one({"email": g.user["email"], "title": data["assignment-title"]})
+        if assignment:
+            flash("You already have an assignment created with that title.")
+            return redirect("/assignment/create")
+        
+        # create post
         post = {
             "_id": str(uuid4()), 
             "email": g.user["email"],
             "title": data["assignment-title"]    
         }
-
-        print("this is it: " + data["assignment-title"])
 
         for i in range(1, length + 1):
             # INITIALIZE DICT
@@ -42,7 +48,8 @@ def create():
             # ADD TO POST
             post[f"question{i}"] = temp
 
-        assignment_collection.insert_one(post)
+        # insert into db
+        assignment_collection.insert_one(post) 
         return render_template("create.html")
 
 
