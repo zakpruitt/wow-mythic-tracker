@@ -11,6 +11,7 @@ db = cluster["coin-data"]
 user_collection = db["user"]
 assignment_collection = db["assignment"]
 
+
 @init.before_app_request
 def find_user():
     """HUH."""

@@ -14,6 +14,5 @@ def load_report(assignmentId):
     if not assignment:
         flash("Not found.")
         return redirect("/assignment/create")
-        #return render_template("dungeon.html", dungeon=dungeon,  p_name=dungeon["p_name"])
-    return render_template("report.html", id=assignmentId)
 
+    return render_template("report.html", id=assignmentId)

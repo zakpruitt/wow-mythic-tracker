@@ -17,10 +17,11 @@ def create():
         length = get_length(list(data.keys()))
 
         # check if title is in use
-        assignment = assignment_collection.find_one(
-            {"email": g.user["email"], 
-            "title": data["assignment-title"]}
-        )
+        assignment = assignment_collection.find_one({
+            "email": g.user["email"],
+            "title": data["assignment-title"],
+            "urlKey": generate_url(),
+        })
         if assignment:
             flash("You already have an assignment created with that title.")
             return redirect("/assignment/create")
@@ -56,6 +57,47 @@ def create():
         return render_template("create.html")
 
 
+@assignment.route("/<key>", methods=["GET"])
+def key_detector(key):
+    """ Detects key in database and redirects user to corresponding original field.
+    Args:
+        key (string): The URL's unique key
+    Returns:
+        function: Redirects to original page or 404 page.
+    """
+
+    # url = table.find_one({"key": key})
+
+    # if url:
+    #     return redirect(url["original"])
+    # else:
+    #     return "404"
+    pass
+
+# region URL FUNCTIONS
+
+
+def generate_url():
+    key = get_random_string()
+    url = assignment_collection.find_one({"urlKey": key})
+
+    # makes sure url is unique
+    while url:
+        key = get_random_string()
+        url = assignment_collection.find_one({"urlKey": key})
+
+    return key
+
+
+def get_random_string():
+    letters = string.ascii_letters
+    return ''.join(random.choice(letters) for i in range(6))
+
+# endregion
+
+# region HELPER FUNCTIONS
+
+
 def get_length(formKeys):
     last_key = formKeys[len(formKeys) - 1]
     length = re.search(r"[0-9]+", last_key).group()
@@ -81,3 +123,5 @@ def get_question_correct_key(questionNumber, keys):
 
 def parse_correct_key_number(correctKey):
     return int(re.search(r"(\d+)$", correctKey).group())
+
+# endregion
