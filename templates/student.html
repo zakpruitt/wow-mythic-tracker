@@ -1,0 +1,131 @@
+{% extends "_master.html" %}
+
+{% block title %}Create Assignment{% endblock %}
+
+{% block content %}
+
+<!--NAV-->
+{% include "_nav.html" %}
+
+<div class="container-fluid">
+    <div class="row">
+        {% include "_sidebar.html" %}
+
+        <!--CONTENT-->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <!--BUTTONS-->
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h2 id="titleDisplay">Students</h2>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <button type="submit" form="classroom"
+                            class="btn btn-sm btn-outline-secondary btn-hover-primary">
+                            Submit Changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!--MODAL-->
+            <div class="modal fade" id="addStudentModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Student</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="studentEmail">
+                                <label for="studentEmail">Student's Email</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="studentEmailBtn" type="button" class="btn btn-success"
+                                data-bs-dismiss="modal" onclick="FindStudent()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form method="POST" id="classroom">
+                <div class="classroom-container">
+                    <div class="table-responsive">
+                        <table id="table" class="table table table-sm" style="text-align: center;">
+                            <thead>
+                                <tr>
+                                    <th class="w-25">Student Email</th>
+                                    <th class="w-25">Full Name</th>
+                                    <th class="w-25">Coins</th>
+                                    <th class="w-25">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="student-table-body">
+                                <tr>
+                                    <td>znpruitt@eagles.usi.edu</td>
+                                    <td>Zakary Pruitt</td>
+                                    <td><input type="number" class="form-control coin-input" id="input1" value=1></td>
+                                    <td>
+                                        <button class="feather-button edit-btn" type="button">
+                                            <span class="feather-20" data-feather="edit-2"></span>
+                                        </button>
+                                        <button class="feather-button delete-btn" type="button">
+                                            <span class="feather-20" data-feather="trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>znpruitt@eagles.usi.edu</td>
+                                    <td>Zakary Pruitt</td>
+                                    <td><input type="number" class="form-control coin-input" id="input1" value=1></td>
+                                    <td>
+                                        <button class="feather-button edit-btn" type="button">
+                                            <span class="feather-20" data-feather="edit-2"></span>
+                                        </button>
+                                        <button class="feather-button delete-btn" type="button">
+                                            <span class="feather-20" data-feather="trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>znpruitt@eagles.usi.edu</td>
+                                    <td>Zakary Pruitt</td>
+                                    <td><input type="number" class="form-control coin-input" id="input1" value=1></td>
+                                    <td>
+                                        <button class="feather-button edit-btn" type="button">
+                                            <span class="feather-20" data-feather="edit-2"></span>
+                                        </button>
+                                        <button class="feather-button delete-btn" type="button">
+                                            <span class="feather-20" data-feather="trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>znpruitt@eagles.usi.edu</td>
+                                    <td>Zakary Pruitt</td>
+                                    <td><input type="number" class="form-control coin-input" id="input1" value=1></td>
+                                    <td>
+                                        <button class="feather-button edit-btn" type="button">
+                                            <span class="feather-20" data-feather="edit-2"></span>
+                                        </button>
+                                        <button class="feather-button delete-btn" type="button">
+                                            <span class="feather-20" data-feather="trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button class="feather-button add-button" type="button" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                        <span class="feather-32" data-feather="plus-circle"></span>
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+
+<!--UNIQUE SCRIPTS-->
+<script src="../static/js/classroom.js"></script>
+{% endblock %}
