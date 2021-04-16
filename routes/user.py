@@ -73,3 +73,11 @@ def sign_out():
     session.pop("email", None)
     flash("You have been logged out successfully.")
     return redirect("/user/login")
+
+
+@user.route("/classroom", methods=["GET"])
+def classroom():
+    if request.method == "POST":
+        pass
+    else:
+        return render_template("student.html")

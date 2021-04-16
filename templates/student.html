@@ -1,0 +1,101 @@
+{% extends "master.html" %}
+
+{% block title %}Create Assignment{% endblock %}
+
+{% block content %}
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">{{ g.user["name"] }}'s Classroom
+    </a>
+    <ul class="navbar-nav px-4">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="/user/sign-out">Sign out</a>
+        </li>
+    </ul>
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <!--SIDEBAR-->
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/">
+                            <span data-feather="home"></span>
+                            Assignment Hub
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/assignment/create">
+                            <span data-feather="file-plus"></span>
+                            Create Assignment
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="bar-chart-2"></span>
+                            Performance Statistics
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/user/classroom">
+                            <span data-feather="users"></span>
+                            Manage Classroom
+                        </a>
+                    </li>
+                </ul>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Quiz reports</span>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            CS 258 - Basic Loop Quiz
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            CS 358 - Inheritance Quiz
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            CS 311 - Sorting Test
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!--CREATE CONTENT-->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <!--BUTTONS-->
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h2 id="titleDisplay">My New Assignment</h2>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-hover-primary"
+                            data-bs-toggle="modal" data-bs-target="#titleChangeModal">
+                            Edit Assignment Name
+                        </button>
+                        <button type="submit" form="create" class="btn btn-sm btn-outline-secondary btn-hover-primary">
+                            Publish Assignment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+    integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+    crossorigin="anonymous"></script>
+<script src="../static/js/create.js"></script>
+{% endblock %}
