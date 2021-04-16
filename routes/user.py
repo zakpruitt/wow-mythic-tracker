@@ -1,9 +1,10 @@
 """dababy."""
-from flask import Flask, redirect, url_for, render_template, request, session, flash, Blueprint
+from flask import Flask, redirect, url_for, render_template, request, session, flash, Blueprint, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from .init import user_collection
 
 user = Blueprint('user', __name__, url_prefix='/user')
+
 
 @user.route("/login", methods=["GET", "POST"])
 def login():
@@ -45,7 +46,7 @@ def register():
 
         name = request.form["name"]
         accountType = request.form["type"]
-        
+
         # create post
         post = {
             "email": email,
@@ -53,20 +54,20 @@ def register():
             "name": name,
             "type": accountType,
         }
-        
+
         if accountType == "Student":
             post["coins"] = 0
         else:
-            post["students"] = { }
-            
+            post["students"] = {}
+
         # post user to database
         user_collection.insert_one(post)
         flash("Your account was successfully made! Please login now.")
         return redirect("/user/login")
     else:
         return render_template("register.html")
-    
-    
+
+
 @user.route("/sign-out", methods=["GET"])
 def sign_out():
     """hello."""
@@ -81,3 +82,13 @@ def classroom():
         pass
     else:
         return render_template("student.html")
+
+
+@user.route("/get", methods=["GET"])
+def get_user():
+    user = user_collection.find_one({"email": request.args["studentEmail"]})
+    return jsonify(
+        email=user["email"], 
+        name=user["name"], 
+        coins=user["coins"]
+    )        

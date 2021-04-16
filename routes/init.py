@@ -14,7 +14,6 @@ assignment_collection = db["assignment"]
 
 @init.before_app_request
 def find_user():
-    print(request.endpoint)
     """HUH."""
     if request.endpoint not in ["user.login", "user.register"]:
         if 'email' in session:

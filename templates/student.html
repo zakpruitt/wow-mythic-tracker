@@ -14,8 +14,7 @@
         <!--CONTENT-->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <!--BUTTONS-->
-            <div
-                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h2 id="titleDisplay">Students</h2>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group me-2">
@@ -27,74 +26,100 @@
                 </div>
             </div>
 
+            <!--MODAL-->
+            <div class="modal fade" id="addStudentModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Student</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="studentEmail">
+                                <label for="studentEmail">Student's Email</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="studentEmailBtn" type="button" class="btn btn-success"
+                                data-bs-dismiss="modal" onclick="FindStudent()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <form method="POST" id="classroom">
-                <div class="create-container">
-                    <h2>Student Records</h2>
-
-
+                <div class="classroom-container">
                     <div class="table-responsive">
-                        <table class="table table table-sm" style="text-align: center;">
+                        <table id="table" class="table table table-sm" style="text-align: center;">
                             <thead>
                                 <tr>
-                                    <th>Student Email</th>
-                                    <th>Full Name</th>
-                                    <th>Coins</th>
+                                    <th class="w-25">Student Email</th>
+                                    <th class="w-25">Full Name</th>
+                                    <th class="w-25">Coins</th>
+                                    <th class="w-25">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="student-table-body">
                                 <tr>
                                     <td>znpruitt@eagles.usi.edu</td>
                                     <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control" id="input1" placeholder="enter amount"></td>
+                                    <td><input type="number" class="form-control coin-input" id="input1" value=1></td>
+                                    <td>
+                                        <button class="feather-button edit-btn" type="button">
+                                            <span class="feather-20" data-feather="edit-2"></span>
+                                        </button>
+                                        <button class="feather-button delete-btn" type="button">
+                                            <span class="feather-20" data-feather="trash"></span>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>znpruitt@eagles.usi.edu</td>
                                     <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control" id="input1" placeholder="enter amount"></td>
+                                    <td><input type="number" class="form-control coin-input" id="input1" value=1></td>
+                                    <td>
+                                        <button class="feather-button edit-btn" type="button">
+                                            <span class="feather-20" data-feather="edit-2"></span>
+                                        </button>
+                                        <button class="feather-button delete-btn" type="button">
+                                            <span class="feather-20" data-feather="trash"></span>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>znpruitt@eagles.usi.edu</td>
                                     <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control" id="input1" placeholder="enter amount"></td>
+                                    <td><input type="number" class="form-control coin-input" id="input1" value=1></td>
+                                    <td>
+                                        <button class="feather-button edit-btn" type="button">
+                                            <span class="feather-20" data-feather="edit-2"></span>
+                                        </button>
+                                        <button class="feather-button delete-btn" type="button">
+                                            <span class="feather-20" data-feather="trash"></span>
+                                        </button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>znpruitt@eagles.usi.edu</td>
                                     <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control" id="input1" placeholder="enter amount"></td>
-                                </tr>
-                                <tr>
-                                    <td>znpruitt@eagles.usi.edu</td>
-                                    <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control" id="input1" placeholder="enter amount"></td>
-                                </tr>
-                                <tr>
-                                    <td>znpruitt@eagles.usi.edu</td>
-                                    <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control" id="input1" placeholder="enter amount"></td>
-                                </tr>
-                                <tr>
-                                    <td>znpruitt@eagles.usi.edu</td>
-                                    <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control" id="input1" placeholder="enter amount"></td>
-                                </tr>
-                                <tr>
-                                    <td>znpruitt@eagles.usi.edu</td>
-                                    <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control" id="input1" placeholder="enter amount"></td>
-                                </tr>
-                                <tr>
-                                    <td>znpruitt@eagles.usi.edu</td>
-                                    <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control" id="input1" placeholder="enter amount"></td>
-                                </tr>
-                                <tr>
-                                    <td>znpruitt@eagles.usi.edu</td>
-                                    <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control" id="input1" placeholder="enter amount"></td>
+                                    <td><input type="number" class="form-control coin-input" id="input1" value=1></td>
+                                    <td>
+                                        <button class="feather-button edit-btn" type="button">
+                                            <span class="feather-20" data-feather="edit-2"></span>
+                                        </button>
+                                        <button class="feather-button delete-btn" type="button">
+                                            <span class="feather-20" data-feather="trash"></span>
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+
+                    <button class="feather-button add-button" type="button" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                        <span class="feather-32" data-feather="plus-circle"></span>
+                    </button>
                 </div>
             </form>
         </main>
