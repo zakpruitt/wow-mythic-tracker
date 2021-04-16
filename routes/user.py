@@ -2,6 +2,7 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash, Blueprint, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from .init import user_collection
+from .init import assignment_collection
 
 user = Blueprint('user', __name__, url_prefix='/user')
 
@@ -81,7 +82,8 @@ def classroom():
     if request.method == "POST":
         pass
     else:
-        return render_template("student.html")
+        assignments = list(assignment_collection.find({"email": session["email"]}))
+        return render_template("student.html", len = len(assignments), assignments = assignments)
 
 
 @user.route("/get", methods=["GET"])

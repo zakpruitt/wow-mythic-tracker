@@ -2,7 +2,9 @@ from flask import Flask, render_template, g, request, session, Blueprint, flash,
 from pymongo import MongoClient
 from uuid import uuid4
 from .init import assignment_collection
-import re, string, random
+import re
+import string
+import random
 
 assignment = Blueprint('assignment', __name__, url_prefix='/assignment')
 
@@ -11,7 +13,9 @@ assignment = Blueprint('assignment', __name__, url_prefix='/assignment')
 def create():
     """HUH."""
     if request.method == "GET":
-        return render_template("create.html")
+        assignments = list(assignment_collection.find(
+            {"email": session["email"]}))
+        return render_template("create.html", len=len(assignments), assignments=assignments)
     elif request.method == "POST":
         data = request.form.to_dict()
         length = get_length(list(data.keys()))
@@ -54,8 +58,9 @@ def create():
 
         # insert into db
         assignment_collection.insert_one(post)
-        return render_template("create.html")
 
+        assignments = list(assignment_collection.find({"email": session["email"]}))
+        return render_template("index.html", len = len(assignments), assignments = assignments)
 
 @assignment.route("/<key>", methods=["GET"])
 def key_detector(key):
