@@ -26,5 +26,6 @@ def find_user():
 @init.route("/", methods=["GET"])
 def home():
     """HUH."""
-    return render_template("index.html")
+    assignments = list(assignment_collection.find({"email": session["email"]}))
+    return render_template("index.html", len = len(assignments), assignments = assignments)
 
