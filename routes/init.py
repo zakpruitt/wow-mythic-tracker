@@ -1,5 +1,5 @@
 """assas."""
-from flask import Flask, render_template, g, request, session, Blueprint, redirect
+from flask import Flask, render_template, g, request, session, Blueprint
 from pymongo import MongoClient
 import os
 
@@ -14,14 +14,12 @@ assignment_collection = db["assignment"]
 
 @init.before_app_request
 def find_user():
-    print(request.endpoint)
     """HUH."""
-    if request.endpoint not in ["user.login", "user.register"]:
-        if 'email' in session:
-            user = user_collection.find_one({"email": session["email"]})
-            g.user = user
-        else:
-            return redirect("/user/login")
+    if 'email' in session:
+        user = user_collection.find_one({"email": session["email"]})
+        g.user = user
+    else:
+        pass
 
 
 @init.route("/", methods=["GET"])
