@@ -1,6 +1,8 @@
 var questions = 1;
 
+document.getElementById("create-a").classList.add("active");
 feather.replace();
+
 
 function AppendQuestion() {
   questions += 1;

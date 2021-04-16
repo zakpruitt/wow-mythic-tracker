@@ -1,13 +1,11 @@
-/* globals Chart:false, feather:false */
+document.getElementById("home-a").classList.add("active");
+feather.replace();
 
 // charts
 var pie = document.getElementById("pie");
 var bar = document.getElementById("bar");
 
-feather.replace();
-
 (function () {
-  // eslint-disable-next-line no-unused-vars
   var PieChart = new Chart(pie, {
     type: "pie",
     data: {
@@ -56,7 +54,6 @@ feather.replace();
 
   pie.style.display = "none";
 })();
-
 
 function showPieChart() {
   bar.style.display = "none";
