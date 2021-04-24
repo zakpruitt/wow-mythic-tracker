@@ -96,7 +96,9 @@ def classroom():
     if request.method == "PUT":
         data = request.get_data(as_text=True)
         studentEmail = parse_at_symbol(data)
-        user_collection.update({"email": session["email"]}, {"$push": { "students": studentEmail } })
+        user_collection.update({"email": session["email"]}, {
+                               "$push": {"students": studentEmail}})
+        # '$set': { 'd.a': existing + 1 }
         return "object posted"
     else:
         user = user_collection.find_one({"email": session["email"]})
@@ -108,8 +110,8 @@ def classroom():
 
 def get_student_db_objects(studentEmails):
     studentObjects = []
-    for i in studentEmails:
-        student = user_collection.find_one({"email": studentEmails})
+    for email in studentEmails:
+        student = user_collection.find_one({"email": email})
         studentObjects.append(student)
     return studentObjects
 
