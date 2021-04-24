@@ -14,7 +14,8 @@
         <!--CONTENT-->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <!--BUTTONS-->
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h2 id="titleDisplay">Students</h2>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group me-2">
@@ -41,8 +42,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button id="studentEmailBtn" type="button" class="btn btn-success"
-                                data-bs-dismiss="modal" onclick="FindStudent()">Submit</button>
+                            <button id="studentEmailBtn" type="button" class="btn btn-success" data-bs-dismiss="modal"
+                                onclick="FindStudent()">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -61,63 +62,24 @@
                                 </tr>
                             </thead>
                             <tbody class="student-table-body">
-                                <tr>
-                                    <td>znpruitt@eagles.usi.edu</td>
-                                    <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control coin-input" id="input1" value=1></td>
+                                {% for student in students %}
+                                <tr>                                    
+                                    <td>{{ student["email"] }}</td>
+                                    <td>{{ student["name"] }}</td>
+                                    <td><input type="number" class="form-control coin-input" id="input1" value={{ student["coins"] }}> </td>
                                     <td>
-                                        <button class="feather-button edit-btn" type="button">
-                                            <span class="feather-20" data-feather="edit-2"></span>
-                                        </button>
                                         <button class="feather-button delete-btn" type="button">
                                             <span class="feather-20" data-feather="trash"></span>
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>znpruitt@eagles.usi.edu</td>
-                                    <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control coin-input" id="input1" value=1></td>
-                                    <td>
-                                        <button class="feather-button edit-btn" type="button">
-                                            <span class="feather-20" data-feather="edit-2"></span>
-                                        </button>
-                                        <button class="feather-button delete-btn" type="button">
-                                            <span class="feather-20" data-feather="trash"></span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>znpruitt@eagles.usi.edu</td>
-                                    <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control coin-input" id="input1" value=1></td>
-                                    <td>
-                                        <button class="feather-button edit-btn" type="button">
-                                            <span class="feather-20" data-feather="edit-2"></span>
-                                        </button>
-                                        <button class="feather-button delete-btn" type="button">
-                                            <span class="feather-20" data-feather="trash"></span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>znpruitt@eagles.usi.edu</td>
-                                    <td>Zakary Pruitt</td>
-                                    <td><input type="number" class="form-control coin-input" id="input1" value=1></td>
-                                    <td>
-                                        <button class="feather-button edit-btn" type="button">
-                                            <span class="feather-20" data-feather="edit-2"></span>
-                                        </button>
-                                        <button class="feather-button delete-btn" type="button">
-                                            <span class="feather-20" data-feather="trash"></span>
-                                        </button>
-                                    </td>
-                                </tr>
+                                {%endfor%}
                             </tbody>
                         </table>
                     </div>
 
-                    <button class="feather-button add-button" type="button" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                    <button class="feather-button add-button" type="button" data-bs-toggle="modal"
+                        data-bs-target="#addStudentModal">
                         <span class="feather-32" data-feather="plus-circle"></span>
                     </button>
                 </div>

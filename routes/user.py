@@ -7,6 +7,16 @@ from .init import assignment_collection
 user = Blueprint('user', __name__, url_prefix='/user')
 
 
+@user.route("/get", methods=["GET"])
+def get_user():
+    user = user_collection.find_one({"email": request.args["studentEmail"]})
+    return jsonify(
+        email=user["email"],
+        name=user["name"],
+        coins=user["coins"]
+    )
+
+
 @user.route("/login", methods=["GET", "POST"])
 def login():
     """hello."""
@@ -16,7 +26,11 @@ def login():
         password = request.form["password"]
 
         user = user_collection.find_one({"email": email})
-        if user and check_password_hash(user["password"], password):
+        if user["type"] == "Student":
+            flash(
+                "Tried to login with a student account. This login is only for teachers.")
+            return redirect("/user/login")
+        elif user and check_password_hash(user["password"], password):
             session["email"] = user["email"]
             return redirect("/")
         else:
@@ -59,7 +73,7 @@ def register():
         if accountType == "Student":
             post["coins"] = 0
         else:
-            post["students"] = {}
+            post["students"] = []
 
         # post user to database
         user_collection.insert_one(post)
@@ -77,20 +91,32 @@ def sign_out():
     return redirect("/user/login")
 
 
-@user.route("/classroom", methods=["GET"])
+@user.route("/classroom", methods=["GET", "PUT"])
 def classroom():
-    if request.method == "POST":
-        pass
+    if request.method == "PUT":
+        data = request.get_data(as_text=True)
+        studentEmail = parse_at_symbol(data)
+        user_collection.update({"email": session["email"]}, {
+                               "$push": {"students": studentEmail}})
+        # '$set': { 'd.a': existing + 1 }
+        return "object posted"
     else:
-        assignments = list(assignment_collection.find({"email": session["email"]}))
-        return render_template("student.html", len = len(assignments), assignments = assignments)
+        user = user_collection.find_one({"email": session["email"]})
+        students = get_student_db_objects(user["students"])
+        assignments = list(assignment_collection.find(
+            {"email": session["email"]}))
+        return render_template("student.html", len=len(assignments), assignments=assignments, students=students)
 
 
-@user.route("/get", methods=["GET"])
-def get_user():
-    user = user_collection.find_one({"email": request.args["studentEmail"]})
-    return jsonify(
-        email=user["email"], 
-        name=user["name"], 
-        coins=user["coins"]
-    )        
+def get_student_db_objects(studentEmails):
+    studentObjects = []
+    for email in studentEmails:
+        student = user_collection.find_one({"email": email})
+        studentObjects.append(student)
+    return studentObjects
+
+
+def parse_at_symbol(email):
+    emailString = email[email.index('=') + 1:]
+    stringPieces = emailString.split("%40")
+    return '@'.join(stringPieces)
