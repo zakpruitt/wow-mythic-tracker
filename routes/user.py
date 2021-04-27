@@ -120,6 +120,9 @@ def classroom():
         return render_template("student.html", len=len(assignments), assignments=assignments, students=students)
 
 
+# helper functions
+
+
 def get_student_db_objects(studentEmails):
     studentObjects = []
     for email in studentEmails:
