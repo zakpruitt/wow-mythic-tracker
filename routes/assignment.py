@@ -62,6 +62,7 @@ def create():
         assignments = list(assignment_collection.find({"email": session["email"]}))
         return render_template("index.html", len = len(assignments), assignments = assignments)
 
+
 @assignment.route("/<key>", methods=["GET"])
 def key_detector(key):
     """ Detects key in database and redirects user to corresponding original field.

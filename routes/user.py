@@ -7,7 +7,7 @@ from .init import assignment_collection
 user = Blueprint('user', __name__, url_prefix='/user')
 
 
-@user.route("/get", methods=["GET"])
+@user.route("/get_student", methods=["GET"])
 def get_user():
     user = user_collection.find_one({"email": request.args["studentEmail"]})
     return jsonify(
@@ -91,21 +91,36 @@ def sign_out():
     return redirect("/user/login")
 
 
-@user.route("/classroom", methods=["GET", "PUT"])
+@user.route("/classroom", methods=["GET", "PUT", "DELETE"])
 def classroom():
     if request.method == "PUT":
         data = request.get_data(as_text=True)
         studentEmail = parse_at_symbol(data)
-        user_collection.update({"email": session["email"]}, {
-                               "$push": {"students": studentEmail}})
-        # '$set': { 'd.a': existing + 1 }
-        return "object posted"
+        putType = parse_type(data)
+
+        if putType == "add":
+            user_collection.update({"email": session["email"]},
+                                   {"$push": {"students": studentEmail}})
+        else:
+            putType = int(putType)
+            user_collection.update({"email": studentEmail},
+                                   {'$set': {'coins': putType}})
+        return "PUT request completed."
+    elif request.method == "DELETE":
+        data = request.get_data(as_text=True)
+        studentEmail = parse_at_symbol(data)
+        user_collection.update({"email": session["email"]},
+                               {"$pull": {"students": studentEmail}})
+        return("DELETE request completed.")
     else:
         user = user_collection.find_one({"email": session["email"]})
         students = get_student_db_objects(user["students"])
         assignments = list(assignment_collection.find(
             {"email": session["email"]}))
         return render_template("student.html", len=len(assignments), assignments=assignments, students=students)
+
+
+# helper functions
 
 
 def get_student_db_objects(studentEmails):
@@ -116,7 +131,17 @@ def get_student_db_objects(studentEmails):
     return studentObjects
 
 
-def parse_at_symbol(email):
-    emailString = email[email.index('=') + 1:]
+def parse_at_symbol(data):
+    emailString = ""
+    if '&' in data:
+        emailString = data[data.index('=') + 1:data.index('&')]
+    else:
+        emailString = data[data.index('=') + 1:]
     stringPieces = emailString.split("%40")
     return '@'.join(stringPieces)
+
+
+def parse_type(data):
+    data = data.replace('=', 'z', 1)
+    putType = data[data.index('=') + 1:]
+    return putType
