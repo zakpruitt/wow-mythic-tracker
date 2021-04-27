@@ -66,7 +66,7 @@
                                 <tr>                                    
                                     <td>{{ student["email"] }}</td>
                                     <td>{{ student["name"] }}</td>
-                                    <td><input type="number" class="form-control coin-input" id="input1" value={{ student["coins"] }}> </td>
+                                    <td><input type="number" onchange="ChangeCoinValue(this)" onKeyDown="return false" class="form-control coin-input" id="input1" value={{ student["coins"] }}> </td>
                                     <td>
                                         <button class="feather-button delete-btn" type="button">
                                             <span class="feather-20" data-feather="trash"></span>

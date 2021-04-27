@@ -16,6 +16,7 @@ def get_user():
         coins=user["coins"]
     )
 
+
 @user.route("/login", methods=["GET", "POST"])
 def login():
     """hello."""
@@ -26,7 +27,8 @@ def login():
 
         user = user_collection.find_one({"email": email})
         if user["type"] == "Student":
-            flash("Tried to login with a student account. This login is only for teachers.")
+            flash(
+                "Tried to login with a student account. This login is only for teachers.")
             return redirect("/user/login")
         elif user and check_password_hash(user["password"], password):
             session["email"] = user["email"]
@@ -94,15 +96,20 @@ def classroom():
     if request.method == "PUT":
         data = request.get_data(as_text=True)
         studentEmail = parse_at_symbol(data)
-        user_collection.update({"email": session["email"]},
-                               {"$push": {"students": studentEmail}})
-        # '$set': { 'd.a': existing + 1 }
-        return "object posted"
+        putType = parse_type(data)
+
+        if putType == "add":
+            user_collection.update({"email": session["email"]},
+                                   {"$push": {"students": studentEmail}})
+        elif putType == "tokenUpdate":
+            user_collection.update({"email": studentEmail},
+                                   {'$set': {'coins': 3}})
+
+        return "PUT request completed."
     else:
         user = user_collection.find_one({"email": session["email"]})
         students = get_student_db_objects(user["students"])
-        assignments = list(assignment_collection.find(
-            {"email": session["email"]}))
+        assignments = list(assignment_collection.find({"email": session["email"]}))
         return render_template("student.html", len=len(assignments), assignments=assignments, students=students)
 
 
@@ -114,7 +121,13 @@ def get_student_db_objects(studentEmails):
     return studentObjects
 
 
-def parse_at_symbol(email):
-    emailString = email[email.index('=') + 1:]
+def parse_at_symbol(data):
+    emailString = data[data.index('=') + 1:data.index('&')]
     stringPieces = emailString.split("%40")
     return '@'.join(stringPieces)
+
+
+def parse_type(data):
+    data = data.replace('=', 'z', 1)
+    putType = data[data.index('=') + 1:]
+    return putType
