@@ -91,7 +91,7 @@ def sign_out():
     return redirect("/user/login")
 
 
-@user.route("/classroom", methods=["GET", "PUT"])
+@user.route("/classroom", methods=["GET", "PUT", "DELETE"])
 def classroom():
     if request.method == "PUT":
         data = request.get_data(as_text=True)
@@ -103,13 +103,15 @@ def classroom():
                                    {"$push": {"students": studentEmail}})
         elif putType == "tokenUpdate":
             user_collection.update({"email": studentEmail},
-                                   {'$set': {'coins': 3}})
-
+                                   {'$inc': {'coins': 1}})
         return "PUT request completed."
+    elif request.method == "DELETE":
+        pass
     else:
         user = user_collection.find_one({"email": session["email"]})
         students = get_student_db_objects(user["students"])
-        assignments = list(assignment_collection.find({"email": session["email"]}))
+        assignments = list(assignment_collection.find(
+            {"email": session["email"]}))
         return render_template("student.html", len=len(assignments), assignments=assignments, students=students)
 
 
