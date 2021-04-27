@@ -206,6 +206,10 @@ a {
   margin-left: -20%;
 }
 
+.delete-float {
+  float: right !important;
+}
+
 /* #endregion */
 
 /* #region CLASSROOM CSS */
