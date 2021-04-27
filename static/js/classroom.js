@@ -5,7 +5,7 @@ function FindStudent() {
   alert("clicked");
   var email = $("#studentEmail").val();
   $.getJSON(
-    "http://127.0.0.1:5000/user/get",
+    "http://127.0.0.1:5000/user/get_student",
     {
       studentEmail: email,
     },

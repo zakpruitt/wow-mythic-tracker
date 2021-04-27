@@ -7,7 +7,7 @@ from .init import assignment_collection
 user = Blueprint('user', __name__, url_prefix='/user')
 
 
-@user.route("/get", methods=["GET"])
+@user.route("/get_student", methods=["GET"])
 def get_user():
     user = user_collection.find_one({"email": request.args["studentEmail"]})
     return jsonify(
@@ -15,7 +15,6 @@ def get_user():
         name=user["name"],
         coins=user["coins"]
     )
-
 
 @user.route("/login", methods=["GET", "POST"])
 def login():
@@ -27,8 +26,7 @@ def login():
 
         user = user_collection.find_one({"email": email})
         if user["type"] == "Student":
-            flash(
-                "Tried to login with a student account. This login is only for teachers.")
+            flash("Tried to login with a student account. This login is only for teachers.")
             return redirect("/user/login")
         elif user and check_password_hash(user["password"], password):
             session["email"] = user["email"]
@@ -96,8 +94,8 @@ def classroom():
     if request.method == "PUT":
         data = request.get_data(as_text=True)
         studentEmail = parse_at_symbol(data)
-        user_collection.update({"email": session["email"]}, {
-                               "$push": {"students": studentEmail}})
+        user_collection.update({"email": session["email"]},
+                               {"$push": {"students": studentEmail}})
         # '$set': { 'd.a': existing + 1 }
         return "object posted"
     else:
