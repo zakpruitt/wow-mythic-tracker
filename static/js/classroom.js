@@ -16,7 +16,7 @@ function FindStudent() {
             <td>${data.name}</td>
             <td><input type="number" onchange="ChangeCoinValue(this)" onKeyDown="return false" class="form-control coin-input" id="input1" value=${data.coins}></td>
             <td>
-                <button class="feather-button delete-btn" type="button">
+                <button onclick="DeleteStudentFromClassroom(this)" class="feather-button delete-btn" type="button">
                     <span class="feather-20" data-feather="trash"></span>
                 </button>
             </td>
@@ -26,6 +26,13 @@ function FindStudent() {
   ).fail(function () {
     console.log("error");
   });
+}
+
+function ChangeCoinValue(element) {
+  var value = $(element).val()
+  var currentRow = $(element).closest("tr");
+  var email = currentRow.children().closest("td").html();
+  UpdateDatabase(email, value.toString());
 }
 
 function UpdateDatabase(studentEmail, type) {
@@ -40,8 +47,17 @@ function UpdateDatabase(studentEmail, type) {
   });
 }
 
-function ChangeCoinValue(element) {
+function DeleteStudentFromClassroom(element) {
   var currentRow = $(element).closest("tr");
   var email = currentRow.children().closest("td").html();
-  UpdateDatabase(email, "tokenUpdate");
+  
+  $.ajax({
+    url: "http://127.0.0.1:5000/user/classroom",
+    type: "DELETE",
+    data: { email: email },
+    success: function (response) {
+      console.log(response);
+      $(element).closest("tr").remove();
+    },
+  });
 }

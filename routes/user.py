@@ -101,12 +101,17 @@ def classroom():
         if putType == "add":
             user_collection.update({"email": session["email"]},
                                    {"$push": {"students": studentEmail}})
-        elif putType == "tokenUpdate":
+        else:
+            putType = int(putType)
             user_collection.update({"email": studentEmail},
-                                   {'$inc': {'coins': 1}})
+                                   {'$set': {'coins': putType}})
         return "PUT request completed."
     elif request.method == "DELETE":
-        pass
+        data = request.get_data(as_text=True)
+        studentEmail = parse_at_symbol(data)
+        user_collection.update({"email": session["email"]},
+                               {"$pull": {"students": studentEmail}})
+        return("DELETE request completed.")
     else:
         user = user_collection.find_one({"email": session["email"]})
         students = get_student_db_objects(user["students"])
@@ -124,7 +129,11 @@ def get_student_db_objects(studentEmails):
 
 
 def parse_at_symbol(data):
-    emailString = data[data.index('=') + 1:data.index('&')]
+    emailString = ""
+    if '&' in data:
+        emailString = data[data.index('=') + 1:data.index('&')]
+    else:
+        emailString = data[data.index('=') + 1:]
     stringPieces = emailString.split("%40")
     return '@'.join(stringPieces)
 
